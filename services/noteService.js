@@ -2,7 +2,7 @@ const fs = require('fs');
 const path = require('path');
 const notePath = path.resolve(__dirname, '..', 'data', 'notes.json');
 
-var notes;
+var notes = fetchData();
 
 function fetchData() {
     fs.existsSync(notePath) || fs.writeFileSync(notePath, JSON.stringify([]));
@@ -21,7 +21,7 @@ function getNote(title) {
 
 function createNote(title, body) {
     console.log(`Create new note. Title - ${title}, body - ${body}`);
-    notes = fetchData();
+    // notes = fetchData();
     const note = getNote(title);
     if (note) {
         console.log(`The note with title ${title} already exists. The new one won't be added`)
@@ -33,12 +33,24 @@ function createNote(title, body) {
 }
 
 function readNote(title) {
-    console.log(`READ ${title}`);
+    // notes = fetchData();
+    const note = getNote(title);
+    if (note) {
+        console.log(`The note with title ${title} found and contains text: ${note.body}`)
+    } else {
+        console.log(`The note with title ${title} not found`)
+    }
 }
 
 function list() {
-    console.log(`LIST ALL NOTES`);
-    console.log(`DIR ${notePath}`);
+    if (Array.isArray(notes) && notes.length) {
+        console.log('List of notes:');
+        notes.forEach((note) => {
+            console.log(note);
+        });
+    } else {
+        console.log('The list of notes is empty');
+    }
 }
 
 function editNote(title, body) {
