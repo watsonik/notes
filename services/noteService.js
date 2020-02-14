@@ -56,15 +56,24 @@ function editNote(title, body) {
     if (note) {
         console.log(`The note with title ${title}. Change content: ${note.body} -> ${body}`);
         note.body = body;
-        save();
         console.log(`Note "${title}" is edited`);
+        save();
     } else {
         console.log(`The note with title "${title}" does not exist`);
     }
 }
 
 function deleteNote(title) {
-    console.log(`DELETE ${title}`);
+    const note = getNote(title);
+
+    if (note) {
+        const index = notes.indexOf(note);
+        index !== -1 && notes.splice(index, 1);
+        console.log(`The note with title ${title} has been deleted`);
+        save();
+    } else {
+        console.log(`The note with title "${title}" does not exist. Nothing to delete`);
+    }
 }
 
 module.exports = {
