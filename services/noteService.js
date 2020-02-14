@@ -2,7 +2,7 @@ const fs = require('fs');
 const path = require('path');
 const notePath = path.resolve(__dirname, '..', 'data', 'notes.json');
 
-var notes = fetchData();
+const notes = fetchData();
 
 function fetchData() {
     fs.existsSync(notePath) || fs.writeFileSync(notePath, JSON.stringify([]));
@@ -59,7 +59,7 @@ function editNote(title, body) {
         console.log(`Note "${title}" is edited`);
         save();
     } else {
-        console.log(`The note with title "${title}" does not exist`);
+        console.log(`The note with title "${title}" not found`);
     }
 }
 
@@ -72,7 +72,7 @@ function deleteNote(title) {
         console.log(`The note with title ${title} has been deleted`);
         save();
     } else {
-        console.log(`The note with title "${title}" does not exist. Nothing to delete`);
+        console.log(`The note with title "${title}" not found. Nothing to delete`);
     }
 }
 

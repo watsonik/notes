@@ -60,4 +60,3 @@ yargs.command('delete', 'delete note', {
 )
     .help()
     .argv;
-
