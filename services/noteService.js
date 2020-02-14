@@ -21,7 +21,6 @@ function getNote(title) {
 
 function createNote(title, body) {
     console.log(`Create new note. Title - ${title}, body - ${body}`);
-    // notes = fetchData();
     const note = getNote(title);
     if (note) {
         console.log(`The note with title ${title} already exists. The new one won't be added`)
@@ -33,7 +32,6 @@ function createNote(title, body) {
 }
 
 function readNote(title) {
-    // notes = fetchData();
     const note = getNote(title);
     if (note) {
         console.log(`The note with title ${title} found and contains text: ${note.body}`)
@@ -54,7 +52,15 @@ function list() {
 }
 
 function editNote(title, body) {
-    console.log(`EDIT ${title} ${body}`);
+    const note = getNote(title);
+    if (note) {
+        console.log(`The note with title ${title}. Change content: ${note.body} -> ${body}`);
+        note.body = body;
+        save();
+        console.log(`Note "${title}" is edited`);
+    } else {
+        console.log(`The note with title "${title}" does not exist`);
+    }
 }
 
 function deleteNote(title) {
