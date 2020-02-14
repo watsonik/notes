@@ -15,12 +15,21 @@ function save() {
     return console.log(`All data saved to ${notePath}`);
 }
 
+function getNote(title) {
+    return notes.find((note) => note.title === title);
+}
+
 function createNote(title, body) {
     console.log(`Create new note. Title - ${title}, body - ${body}`);
     notes = fetchData();
-    const note = {title, body};
-    notes.push(note);
-    save();
+    const note = getNote(title);
+    if (note) {
+        console.log(`The note with title ${title} already exists. The new one won't be added`)
+    } else {
+        const newNote = {title, body};
+        notes.push(newNote);
+        save();
+    }
 }
 
 function readNote(title) {
