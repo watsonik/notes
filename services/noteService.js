@@ -4,21 +4,41 @@ const notePath = path.resolve(__dirname, '..', 'data', 'notes.json');
 
 const notes = fetchData();
 
+/**
+ *
+ * fetch all notes
+ * @return {Array}
+ */
 function fetchData() {
     fs.existsSync(notePath) || fs.writeFileSync(notePath, JSON.stringify([]));
     const data = fs.readFileSync(notePath, 'utf-8');
     return JSON.parse(data);
 }
 
+/**
+ *
+ * write all notes into file specified
+ */
 function save() {
     fs.writeFileSync(notePath, JSON.stringify(notes));
     return console.log(`All data saved to ${notePath}`);
 }
 
+/**
+ *
+ * fetch all notes
+ * @return {Array}
+ */
 function getNote(title) {
     return notes.find((note) => note.title === title);
 }
 
+/**
+ *
+ * function creates the new note
+ * @param {String} title
+ * @param {String} body
+ */
 function createNote(title, body) {
     console.log(`Create new note. Title - ${title}, body - ${body}`);
     const note = getNote(title);
@@ -31,6 +51,11 @@ function createNote(title, body) {
     }
 }
 
+/**
+ *
+ * print out the note with specified title
+ * @param {String} title
+ */
 function readNote(title) {
     const note = getNote(title);
     if (note) {
@@ -40,6 +65,10 @@ function readNote(title) {
     }
 }
 
+/**
+ *
+ * print out all notes
+ */
 function list() {
     if (Array.isArray(notes) && notes.length) {
         console.log('List of notes:');
@@ -51,6 +80,12 @@ function list() {
     }
 }
 
+/**
+ *
+ * edit the note with specified title
+ * @param {String} title
+ * @param {String} body new content
+ */
 function editNote(title, body) {
     const note = getNote(title);
     if (note) {
@@ -63,6 +98,11 @@ function editNote(title, body) {
     }
 }
 
+/**
+ *
+ * delete the note with specified title
+ * @param {String} title
+ */
 function deleteNote(title) {
     const note = getNote(title);
 
