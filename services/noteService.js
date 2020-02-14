@@ -2,14 +2,25 @@ const fs = require('fs');
 const path = require('path');
 const notePath = path.resolve(__dirname, '..', 'data', 'notes.json');
 
+var notes;
 
-function fetchNotes() {
-    return fs.existsSync(notePath) || fs.writeFileSync(notePath, JSON.stringify([]));
+function fetchData() {
+    fs.existsSync(notePath) || fs.writeFileSync(notePath, JSON.stringify([]));
+    const data = fs.readFileSync(notePath, 'utf-8');
+    return JSON.parse(data);
+}
+
+function save() {
+    fs.writeFileSync(notePath, JSON.stringify(notes));
+    return console.log(`All data saved to ${notePath}`);
 }
 
 function createNote(title, body) {
-    const notes = fetchNotes();
-    console.log(`CREATE ${title} ${body}`);
+    console.log(`Create new note. Title - ${title}, body - ${body}`);
+    notes = fetchData();
+    const note = {title, body};
+    notes.push(note);
+    save();
 }
 
 function readNote(title) {
